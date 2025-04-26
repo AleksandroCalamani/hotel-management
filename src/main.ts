@@ -9,7 +9,7 @@ async function bootstrap() {
     .setTitle('Hotel Management')
     .setDescription('API documentation for my Hotel Management app')
     .setVersion('1.0')
-    .addBearerAuth() 
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
