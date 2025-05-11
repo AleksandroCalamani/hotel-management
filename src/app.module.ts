@@ -1,9 +1,6 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -12,14 +9,13 @@ import { User } from './user/entities/user.entity';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: '',
+      password: '', // or your MySQL password
       database: 'hotel-management',
-      entities: [User],
-      synchronize: true,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true, // this creates tables automatically
     }),
-    UserModule,
+    RoomModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
 })
 export class AppModule {}
+
