@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { RoomModule } from './room/room.module';
 import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { Room } from './room/entities/room.entity';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -15,9 +17,10 @@ import { AuthModule } from './auth/auth.module';
       username: 'root',
       password: '',
       database: 'hotel-management',
-      entities: [User],
+      entities: [User, Room],
       synchronize: true,
     }),
+    RoomModule,
     UserModule,
     AuthModule,
   ],
