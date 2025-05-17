@@ -6,6 +6,4 @@ export class AuthService {
   create(createAuthDto: LoginDto) {
     return 'This action adds a new auth';
   }
-
- 
 }

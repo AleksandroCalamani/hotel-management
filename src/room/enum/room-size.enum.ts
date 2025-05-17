@@ -1,0 +1,7 @@
+export enum RoomSize {
+  STANDART = 'STANDART',
+  DELUXE = 'DELUXE',
+  SUPERIOR = 'SUPERIOR',
+  EXECUTIVE = 'EXECUTIVE',
+  STUDIO = 'STUDIO',
+}
