@@ -4,15 +4,17 @@ import { User } from './entities/user.entity';
 
 @Injectable()
 export class UserRepository {
-  private repository: Repository<User>;
+  private userRepository: Repository<User>;
 
   constructor(private dataSource: DataSource) {
-    this.repository = this.dataSource.getRepository(User);
+    this.userRepository = this.dataSource.getRepository(User);
   }
 
   async getByEmail(email: string): Promise<User | null> {
-    return await this.repository.findOne({
-      where: { email },
+    return await this.userRepository.findOne({
+      where: {
+        email: email,
+      },
     });
   }
 }
