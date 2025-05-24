@@ -1,16 +1,18 @@
+import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 
-export class UserRepository extends Repository<User> {
+@Injectable()
+export class UserRepository {
+  private repository: Repository<User>;
+
   constructor(private dataSource: DataSource) {
-    super(User, dataSource.createEntityManager());
+    this.repository = this.dataSource.getRepository(User);
   }
 
   async getByEmail(email: string): Promise<User | null> {
-    return await this.findOne({
-      where: {
-        email: email,
-      },
+    return await this.repository.findOne({
+      where: { email },
     });
   }
 }
