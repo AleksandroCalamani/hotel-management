@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto } from './dto/login.dto';
+import LoginDto from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -16,6 +16,6 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    return this.authService.create(loginDto);
+    return await this.authService.login(loginDto);
   }
 }
