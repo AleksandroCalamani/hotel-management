@@ -5,6 +5,7 @@ import { ErrorMessage } from 'src/core/error-message';
 import bcrypt from 'bcrypt';
 import { LoginResponseDto } from './dto/login-response.dto';
 import { JwtService } from '@nestjs/jwt';
+import { plainToInstance } from 'class-transformer';
 
 const saltRounds: number = 10;
 const bcrypt = require('bcrypt');
@@ -16,7 +17,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto): Promise<LoginResponseDto> {
     console.log(`user with email ${loginDto.email} attempted to login`);
     const user = await this.userRepository.getByEmail(loginDto.email);
     if (!user) {
@@ -29,9 +30,17 @@ export class AuthService {
       console.error(`WRONG PASSWORD FOR USER WITH EMAIL ${loginDto.email}`);
       throw new BadRequestException(ErrorMessage.WRONG_CREDENTIALS);
     }
+
+    return this.accesToken(plainToInstance(LoginResponseDto, user));
   }
 
-  async accesToken(loginResponseDto: LoginResponseDto) {
-    loginResponseDto.accesToken=this.jwtService({username:loginResponseDto.email,userId:loginResponseDto.userId});
+  async accesToken(
+    loginResponseDto: LoginResponseDto,
+  ): Promise<LoginResponseDto> {
+    loginResponseDto.accesToken = this.jwtService.sign({
+      username: loginResponseDto.email,
+      userId: loginResponseDto.id,
+    });
+    return loginResponseDto;
   }
 }

@@ -5,7 +5,7 @@ import { IsEmail, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class LoginResponseDto {
   @Expose()
   @IsNumber()
-  userId: number;
+  id: number;
 
   @Expose()
   @IsString()
