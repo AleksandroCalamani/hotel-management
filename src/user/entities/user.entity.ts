@@ -9,13 +9,13 @@ export class User {
     name: 'first_name',
     nullable: false,
   })
-  firstname: string;
+  firstName: string;
 
   @Column('text', {
     name: 'last_name',
     nullable: false,
   })
-  lastname: string;
+  lastName: string;
 
   @Column('text', {
     name: 'email',
